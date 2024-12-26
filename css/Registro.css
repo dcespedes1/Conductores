@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #fffef2;
+}
+
+.logo {
+  margin-bottom: 20px; /* Espaciado entre el logo y el formulario */
+}
+
+.logo img {
+  width: 80px; /* Tamaño del logo */
+  height: 80px;
+  object-fit: contain; /* Ajusta la imagen al contenedor sin distorsionarla */
+  border-radius: 20%; /* Haz que el logo sea redondo */
+}
+
+.form-container {
+  background: white;
+  width: 350px;
+  padding: 20px;
+  border: 2px solid #30884B;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.buttons .btn {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+.buttons .btn-secondary {
+  background-color: #30884B;
+}
+
+.buttons .btn-secondary:hover {
+  background-color: #555;
+}
+
+.buttons .btn-primary {
+  background-color: #30884B;
+  border: none;
+}
+
+.buttons .btn-primary:hover {
+  background-color: #555;
+}
