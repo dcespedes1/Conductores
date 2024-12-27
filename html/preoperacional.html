@@ -264,9 +264,15 @@ body {
           <label for="inicio">Hora de inicio</label>
           <input type="text" id="inicio" name="inicio">
         </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="inicio">Tomar Foto</label>
+            <input type="file" id="inicio" name="inicio" accept="image/*" capture="camera" required>
+          </div>
+        </div>      
       </div>
       <div class="buttons">
-        <a href="Home.html" class="btn btn-primary">Enviar</a>
+        <a type="submit" href="Home.html" class="btn btn-primary">Enviar</a>
       </div>
     </form>
   </div>
