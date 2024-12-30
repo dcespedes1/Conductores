@@ -7,7 +7,7 @@ const Login = () => {
     <div className="flex flex-col items-center justify-center h-screen bg-[#fffef2]">
       <h1 className="text-2xl font-bold mb-6">Iniciar Sesión</h1>
       <div className="flex justify-center items-center w-20 h-20 mb-5">
-        <img src={Logo} alt="Logo" className="h-10 mr-2" />
+        <img src={Logo} alt="Logo" className="w-40 mx-auto mb-6 rounded-lg" />
       </div>
       <div className="bg-white w-72 p-5 border-2 border-green-600 rounded-lg shadow-lg text-center">
         <input

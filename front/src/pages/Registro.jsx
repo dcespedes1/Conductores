@@ -7,7 +7,7 @@ const Register = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#fffef2]">
       <h1 className="text-2xl font-bold mb-6">Registrarse</h1>
       <div className="mb-6">
-        <img src={Logo} alt="Logo" className="h-10 mr-2" />
+        <img src={Logo} alt="Logo" className="w-40 mx-auto mb-6 rounded-lg" />
       </div>
       <div className="bg-white w-80 p-6 border-2 border-[#30884B] rounded-lg shadow-md text-center">
         <input
