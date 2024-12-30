@@ -1,8 +1,15 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Logo from "../img/Logo.png";
 import { Link } from "react-router-dom";
 
 const BienvenidaMovil = () => {
+  const [ID_Movil, setID_Movil] = useState(null);
+
+  useEffect(() => {
+    // Recuperamos el ID_Movil desde localStorage
+    const movilIDStored = localStorage.getItem('ID_Movil');
+    setID_Movil(movilIDStored);  // Guardamos el valor del ID_Movil en el estado
+  }, []);
   return (
     <div className="flex flex-col items-center bg-[#fffef2] min-h-screen">
       {/* Navbar */}
@@ -17,7 +24,7 @@ const BienvenidaMovil = () => {
         <main className="text-center">
           {/* Title */}
           <h1 className="text-2xl font-extrabold text-gray-800 mb-6">
-            Bienvenido Móvil 0145
+          {ID_Movil ? `Bienvenido Móvil ${ID_Movil}` : 'Cargando...'}
           </h1>
           {/* Button */}
           <button className="w-full bg-[#30884B] text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-[#256639] transition">
