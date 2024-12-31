@@ -79,7 +79,6 @@ const Preoperacional = () => {
       }
     }
   };
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#fffef2] px-5">
       {/* Navbar */}
