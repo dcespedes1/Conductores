@@ -4,7 +4,6 @@ import Logo from '../img/Logo.png';
 import axios from 'axios';
 
 const URI = 'http://localhost:3000/api/preoperacional';
-
 const Preoperacional = () => {
   const [ID_Movil, setID_Movil] = useState('');
   const [fecha_act, setFecha_act] = useState('');
