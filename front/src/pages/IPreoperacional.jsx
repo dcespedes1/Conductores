@@ -1,8 +1,27 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Logo from "../img/Logo.png";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const IPreoperacional = () => {
+const URI = "http://localhost:3000/api/preoperacional";
+
+function IPreoperacional () {
+  const [preoperacional, setPreoperacional] = useState([]);
+
+  useEffect(() => {
+    getPreoperacional();
+  }, []);
+
+  const getPreoperacional = async () => {
+    try {
+      const res = await axios.get(URI);
+      setPreoperacional(res.data);
+    } catch (error) {
+      console.error("Error al obtener los datos del inventario preoperacional:", error);
+    }
+  };
+
+
   return (
     <div className="flex flex-col bg-[#fffef2] min-h-screen">
       {/* Navbar */}
@@ -35,7 +54,7 @@ const IPreoperacional = () => {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-4 mt-20">
-        <main className="bg-white rounded-lg shadow-lg p-6">
+        <main className="bg-transparent rounded-lg shadow-lg p-6">
           {/* Logo */}
           <img
             src={Logo}
@@ -48,18 +67,21 @@ const IPreoperacional = () => {
           </h1>
           {/* Inventory Table */}
           <div className="overflow-x-auto">
-            <table className="table-auto w-full border-collapse border border-gray-300 text-sm">
+            <table className="bg-white table-auto w-full border-collapse border border-gray-300 text-sm">
               <thead>
                 <tr className="bg-[#30884B] text-white sticky top-0">
-                  <th className="px-4 py-2 border">ID Móvil</th>
+                  <th className="px-4 py-2 border">ID</th>
+                  <th className="px-4 py-2 border">ID_Movil</th>
+                  <th className="px-4 py-2 border">fecha_act</th>
                   <th className="px-4 py-2 border">Pito</th>
-                  <th className="px-4 py-2 border">Luz Reversa</th>
+                  <th className="px-4 py-2 border">Luz_Reversa</th>
                   <th className="px-4 py-2 border">Luces</th>
                   <th className="px-4 py-2 border">Direccionales</th>
                   <th className="px-4 py-2 border">Nivel Fluido</th>
                   <th className="px-4 py-2 border">Fuga Fluido</th>
                   <th className="px-4 py-2 border">Novedad Piezas</th>
                   <th className="px-4 py-2 border">Novedad Encendido</th>
+                  <th className="px-4 py-2 border">Kilometraje</th>
                   <th className="px-4 py-2 border">Sueño</th>
                   <th className="px-4 py-2 border">Kit</th>
                   <th className="px-4 py-2 border">Carrocería</th>
@@ -69,55 +91,46 @@ const IPreoperacional = () => {
                   <th className="px-4 py-2 border">Luz Parqueo</th>
                   <th className="px-4 py-2 border">Horas Manejando</th>
                   <th className="px-4 py-2 border">Visión</th>
+                  <th className="px-4 py-2 border">Pausas</th>
+                  <th className="px-4 py-2 border">Síntomas</th>
                   <th className="px-4 py-2 border">Inicio</th>
                   <th className="px-4 py-2 border">ID Conductor</th>
+                  <th className="px-4 py-2 border">Nombre conductor</th>
+                  <th className="px-4 py-2 border">Imagen</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="hover:bg-gray-100">
-                  <td className="px-4 py-2 border">126</td>
-                  <td className="px-4 py-2 border">Ok</td>
-                  <td className="px-4 py-2 border">Funciona</td>
-                  <td className="px-4 py-2 border">Todas</td>
-                  <td className="px-4 py-2 border">Derecha</td>
-                  <td className="px-4 py-2 border">Lleno</td>
-                  <td className="px-4 py-2 border">No</td>
-                  <td className="px-4 py-2 border">No</td>
-                  <td className="px-4 py-2 border">Encendido</td>
-                  <td className="px-4 py-2 border">00:15:00</td>
-                  <td className="px-4 py-2 border">Completo</td>
-                  <td className="px-4 py-2 border">Buen estado</td>
-                  <td className="px-4 py-2 border">Completo</td>
-                  <td className="px-4 py-2 border">Normal</td>
-                  <td className="px-4 py-2 border">Desinflada</td>
-                  <td className="px-4 py-2 border">Funciona</td>
-                  <td className="px-4 py-2 border">02:00</td>
-                  <td className="px-4 py-2 border">Normal</td>
-                  <td className="px-4 py-2 border">2024-01-01 08:00:00</td>
-                  <td className="px-4 py-2 border">1011011010</td>
+                {preoperacional.map((preoperacional, _index ) => (
+                <tr key={preoperacional.ID} className="hover:bg-gray-100">
+                  <td className="px-4 py-2 border">{preoperacional.ID}</td>
+                  <td className="px-4 py-2 border"> {preoperacional.ID_Movil} </td>
+                  <td className="px-4 py-2 border">{preoperacional.fecha_act}</td>
+                  <td className="px-4 py-2 border">{preoperacional.Pito}</td>
+                  <td className="px-4 py-2 border">{preoperacional.Luz_Reversa}</td>
+                  <td className="px-4 py-2 border"> {preoperacional.Luces} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Direccionales} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Nivel_FLuido} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Fuga_Fluido} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Novedad_piezas} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Novedad_encendido} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Kilometraje} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Sueño} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Kit} </td>
+                  <td className="px-4 py-2 border">{preoperacional.carroceria} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Botiquin} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Interior} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Llantas} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Luz_Parqueo} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Horas_manejando} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Vision} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.pausas} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.sintomas} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Inicio} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.ID_Conductor} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.Conductor.nombre} </td>
+                  <td className="px-4 py-2 border"> {preoperacional.imagen} </td>
                 </tr>
-                <tr className="hover:bg-gray-100">
-                  <td className="px-4 py-2 border">30</td>
-                  <td className="px-4 py-2 border">No</td>
-                  <td className="px-4 py-2 border">No funciona</td>
-                  <td className="px-4 py-2 border">Malas</td>
-                  <td className="px-4 py-2 border">Izquierda</td>
-                  <td className="px-4 py-2 border">Medio</td>
-                  <td className="px-4 py-2 border">Sí</td>
-                  <td className="px-4 py-2 border">Falta pieza</td>
-                  <td className="px-4 py-2 border">No enciende</td>
-                  <td className="px-4 py-2 border">01:00:00</td>
-                  <td className="px-4 py-2 border">Faltante</td>
-                  <td className="px-4 py-2 border">Dañada</td>
-                  <td className="px-4 py-2 border">Incompleto</td>
-                  <td className="px-4 py-2 border">Normal</td>
-                  <td className="px-4 py-2 border">Desinflada</td>
-                  <td className="px-4 py-2 border">No funciona</td>
-                  <td className="px-4 py-2 border">03:00</td>
-                  <td className="px-4 py-2 border">Mala</td>
-                  <td className="px-4 py-2 border">2024-01-02 09:00:00</td>
-                  <td className="px-4 py-2 border">2022022020</td>
-                </tr>
+                ))}
               </tbody>
             </table>
           </div>

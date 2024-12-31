@@ -183,7 +183,7 @@ const AgregarM = () => {
             <label htmlFor="Ven_RCC" className="block text-sm font-bold text-black mb-2">Ven. RCC</label>
             <input
               type="date"
-              id="date"
+              id="Ven_RCC"
               value={Ven_RCC}
               onChange={(e) => setVen_RCC(e.target.value)}
               className="w-full px-4 py-2 border border-[#30884B] rounded-md bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#30884B]"

@@ -1,29 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../img/Logo.png';
+import axios from 'axios';
 
-const ConductoresData = [
-  {
-    id: 1012602034,
-    nombre: 'Marcos Fidel',
-    apellido: 'Suarez',
-    telefono: '3204479019',
-    expLC: '2024-01-15',
-    venLC: '2024-01-15',
-    clase: 'text-orange-500 font-bold'
-  },
-  {
-    id: 1028702740,
-    nombre: 'Daniel',
-    apellido: 'Cespedes',
-    telefono: '3204472020',
-    expLC: '2024-02-15',
-    venLC: '2025-02-15',
-    clase: 'text-green-500 font-bold'
-  }
-];
+const URI = 'http://localhost:3000/api/conductor';
 
-const Conductores = () => {
+function Conductores  ()  {
+  const [Conductores, setConductores] = useState([]);
+
+  useEffect(() => {
+    getconductores();
+  }, []);
+
+  const getconductores = async () => {
+    try {
+      const res = await axios.get(URI);
+      setConductores(res.data);
+    } catch (error) {
+      console.error('Error al obtener los conductores:', error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${URI}/${id}`);
+      setConductores(Conductores.filter(conductor => conductor.ID_Conductor !== id)); // Eliminamos el conductor de la vista
+    } catch (error) {
+      console.error('Error al eliminar el conductor:', error);
+    }
+  };
+
   return (
     <div className="flex flex-col bg-[#fffef2] min-h-screen">
       {/* Navbar */}
@@ -56,7 +62,7 @@ const Conductores = () => {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-4 mt-20">
-        <main className="bg-white rounded-lg shadow-lg p-6">
+        <main className="bg-transparent rounded-lg shadow-lg p-6">
           {/* Logo */}
           <img
             src={Logo}
@@ -75,7 +81,7 @@ const Conductores = () => {
           </div>
           {/* Conductores Table */}
           <div className="overflow-x-auto">
-            <table className="table-auto w-full border-collapse border border-gray-300 text-sm">
+            <table className="bg-white  table-auto w-full border-collapse border border-gray-300 text-sm">
               <thead>
                 <tr className="bg-[#30884B] text-white sticky top-0">
                   <th className="px-4 py-2 border">Número de Identificación</th>
@@ -88,19 +94,21 @@ const Conductores = () => {
                 </tr>
               </thead>
               <tbody>
-                {ConductoresData.map((conductor) => (
-                  <tr key={conductor.id} className="hover:bg-gray-100">
-                    <td className="px-4 py-2 border">{conductor.id}</td>
+                {Conductores.map((conductor) => (
+                  <tr key={conductor.ID_Conductor} className="hover:bg-gray-100">
+                    <td className="px-4 py-2 border"> {conductor.ID_Conductor}</td>
                     <td className="px-4 py-2 border">{conductor.nombre}</td>
                     <td className="px-4 py-2 border">{conductor.apellido}</td>
                     <td className="px-4 py-2 border">{conductor.telefono}</td>
-                    <td className="px-4 py-2 border">{conductor.expLC}</td>
-                    <td className={`px-4 py-2 border ${conductor.clase}`}>{conductor.venLC}</td>
+                    <td className="px-4 py-2 border">{conductor.fechaExp}</td>
+                    <td className="px-4 py-2 border">{conductor.fechaVen}</td>
                     <td className="px-4 py-2 border flex gap-2 justify-center">
                       <button className="bg-yellow-400 text-white px-2 py-1 rounded hover:bg-yellow-500 transition">
                         <Link to="/actualizarC">✏️</Link>
                       </button>
-                      <button className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition">
+                      <button
+                      onClick={() => handleDelete(conductor.ID_Conductor)}
+                      className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition">
                         🗑️
                       </button>
                     </td>

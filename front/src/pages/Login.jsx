@@ -68,6 +68,7 @@ function Login() {
       >
         <input
           type="text"
+          id='ID_Movil'
           placeholder="Ingrese Movil"
           value={ID_Movil}
           onChange={(e) => setMovil(e.target.value)}
@@ -75,6 +76,7 @@ function Login() {
         />
         <input
           type="text"
+          id='Placa'
           placeholder="Placa"
           value={Placa}
           onChange={(e) => setPlaca(e.target.value)}

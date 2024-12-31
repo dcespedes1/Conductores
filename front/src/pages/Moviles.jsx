@@ -50,7 +50,7 @@ function Moviles() {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-4 mt-20">
-        <main className="bg-white rounded-lg shadow-lg p-6">
+        <main className="bg-transparent rounded-lg shadow-lg p-6">
           <img src={Logo} alt="Logo" className="w-40 mx-auto mb-6 rounded-lg" />
           <h1 className="text-2xl font-bold text-center text-[#2c3e50] mb-4">Inventario de Móviles</h1>
           
@@ -61,7 +61,7 @@ function Moviles() {
 
           {/* Inventory Table */}
           <div className="overflow-x-auto">
-            <table className="table-auto w-full border-collapse border border-gray-300 text-sm">
+            <table className="bg-white table-auto w-full border-collapse border border-gray-300 text-sm">
               <thead>
                 <tr className="bg-[#30884B] text-white sticky top-0">
                   <th className="px-4 py-2 border">Móvil</th>
