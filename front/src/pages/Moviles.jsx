@@ -18,7 +18,6 @@ function Moviles() {
       console.error('Error al obtener los móviles:', error);
     }
   };
-
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${URI}/${id}`);
@@ -27,7 +26,6 @@ function Moviles() {
       console.error('Error al eliminar el móvil:', error);
     }
   };
-
   return (
     <div className="flex flex-col bg-[#fffef2] min-h-screen">
       {/* Navbar */}
