@@ -20,7 +20,7 @@ function Moviles() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${URI}/${id}`);
-      setMoviles(moviles.filter(movil => movil.ID_Movil !== id)); // Eliminamos el móvil de la vista
+      setMoviles(moviles.filter(movil => movil.ID_Movil !== id)); 
     } catch (error) {
       console.error('Error al eliminar el móvil:', error);
     }
