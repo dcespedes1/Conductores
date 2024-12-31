@@ -7,11 +7,9 @@ const URI = 'http://localhost:3000/api/movil';
 
 function Moviles() {
   const [moviles, setMoviles] = useState([]);
-
   useEffect(() => {
     getmoviles();
   }, []);
-
   const getmoviles = async () => {
     try {
       const res = await axios.get(URI);
