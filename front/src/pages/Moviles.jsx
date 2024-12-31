@@ -4,7 +4,6 @@ import Logo from "../img/Logo.png";
 import axios from 'axios';
 
 const URI = 'http://localhost:3000/api/movil';
-
 function Moviles() {
   const [moviles, setMoviles] = useState([]);
   useEffect(() => {
@@ -54,7 +53,6 @@ function Moviles() {
           <button className="bg-green-700 text-white px-6 py-2 rounded-md hover:bg-green-600 transition block ml-auto mb-4">
             <Link to="/agregarM">Agregar</Link>
           </button>
-
           {/* Inventory Table */}
           <div className="overflow-x-auto">
             <table className="bg-white table-auto w-full border-collapse border border-gray-300 text-sm">
