@@ -31,7 +31,6 @@ const Preoperacional = () => {
   const [ID_Conductor, setID_Conductor] = useState('');
   const [image, setImage] = useState('');
   const navigate = useNavigate();
-
   const store = async (e) => {
     e.preventDefault();
     try {
