@@ -88,12 +88,10 @@ const Preoperacional = () => {
           <Link to="/home" className="no-underline text-white">🏡</Link>
         </button>
       </div>
-
       {/* Logo */}
       <div className="my-5">
         <img src={Logo} alt="Logo" className="h-20 w-20 object-contain rounded-lg" />
       </div>
-
       {/* Form */}
       <div className="w-full max-w-lg bg-transparent rounded-lg shadow-md p-5">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-5">Preoperacional</h2>
