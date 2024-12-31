@@ -382,5 +382,4 @@ const Preoperacional = () => {
     </div>
   );
 };
-
 export default Preoperacional;
