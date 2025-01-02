@@ -4,11 +4,15 @@ import Logo from "../img/Logo.png";
 import axios from 'axios';
 
 const URI = 'http://localhost:3000/api/movil';
+
 function Moviles() {
   const [moviles, setMoviles] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
   useEffect(() => {
     getmoviles();
   }, []);
+  
   const getmoviles = async () => {
     try {
       const res = await axios.get(URI);
@@ -17,6 +21,12 @@ function Moviles() {
       console.error('Error al obtener los móviles:', error);
     }
   };
+  const filteredMoviles = moviles.filter(movil =>
+    Object.values(movil).some(value =>
+      String(value).toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${URI}/${id}`);
@@ -46,13 +56,29 @@ function Moviles() {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-4 mt-20">
         <main className="bg-transparent rounded-lg shadow-lg p-6">
+          
+          {/* Logo */}
           <img src={Logo} alt="Logo" className="w-40 mx-auto mb-6 rounded-lg" />
           <h1 className="text-2xl font-bold text-center text-[#2c3e50] mb-4">Inventario de Móviles</h1>
           
-          {/* Button to add a new mobile */}
+          {/* Search*/}
+          <div className="my-8 flex justify-between items-center space-x-4">
+            <input
+              type="text"
+              placeholder={'Buscar...'}
+              className="w-full max-w-xs p-3 rounded-lg border-2 border-green-600 bg-[#fffef2] text-black focus:outline-none focus:ring-2 focus:ring-green-500"
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <span>
+            {`Mostando ${filteredMoviles.length} de ${moviles.length} móviles`}
+          </span>
+
+          {/*Add Button*/}
           <button className="bg-green-700 text-white px-6 py-2 rounded-md hover:bg-green-600 transition block ml-auto mb-4">
             <Link to="/agregarM">Agregar</Link>
           </button>
+          
           {/* Inventory Table */}
           <div className="overflow-x-auto">
             <table className="bg-white table-auto w-full border-collapse border border-gray-300 text-sm">

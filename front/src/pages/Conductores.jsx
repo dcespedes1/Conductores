@@ -7,6 +7,7 @@ const URI = 'http://localhost:3000/api/conductor';
 
 function Conductores  ()  {
   const [Conductores, setConductores] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     getconductores();
@@ -20,6 +21,11 @@ function Conductores  ()  {
       console.error('Error al obtener los conductores:', error);
     }
   };
+  const filteredConductores = Conductores.filter(Conductores =>
+    Object.values(Conductores).some(value =>
+      String(value).toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
 
   const handleDelete = async (id) => {
     try {
@@ -63,16 +69,26 @@ function Conductores  ()  {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-4 mt-20">
         <main className="bg-transparent rounded-lg shadow-lg p-6">
+          
           {/* Logo */}
-          <img
-            src={Logo}
-            alt="Logo"
-            className="w-40 mx-auto mb-6 rounded-lg"
-          />
+          <img src={Logo} alt="Logo" className="w-40 mx-auto mb-6 rounded-lg" />
+
           {/* Title */}
-          <h1 className="text-2xl font-bold text-center text-[#2c3e50] mb-4">
-            Inventario de Conductores
-          </h1>
+          <h1 className="text-2xl font-bold text-center text-[#2c3e50] mb-4">Inventario de Conductores </h1>
+          
+          {/* Search */}
+          <div className="my-8 flex justify-between items-center space-x-4">
+          <input
+            type="text"
+            placeholder={ 'Buscar...' }
+            className= "w-full max-w-xs p-3 rounded-lg border-2 border-green-600 bg-[#fffef2] text-black focus:outline-none focus:ring-2 focus:ring-green-500"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          </div>
+          <span>
+            {`Mostrando ${Math.min(filteredConductores.length, Conductores.length)} de ${Conductores.length} Conductores`}
+          </span>
+          
           {/* Add Button */}
           <div className="flex justify-end mb-4">
             <button className="bg-[#30884B] text-white px-4 py-2 rounded-md hover:bg-[#26703A] transition">
