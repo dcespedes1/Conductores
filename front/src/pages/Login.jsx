@@ -1,26 +1,62 @@
 import React, { useState } from 'react';
+import Logo from '../img/Logo.png';
 
 const URI = 'http://localhost:3000/api/movil/login';
 const URI2 = 'http://localhost:3000/api/admin/login';
 
 function Login() {
   const [ID_Movil, setMovil] = useState('');
-
   const [Placa, setPlaca] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Función para validar si es un administrador
   const validateFormAdmin = () => {
-    // Aquí podrías agregar validaciones específicas para identificar si es un admin
-    const isAdminFormat = false;  // Ejemplo: ADMIN-123
-    return isAdminFormat;
+    // Verifica si el ID comienza con "ADMIN-" seguido de números
+    const adminPattern = /^ADMIN-\d+$/;
+    return adminPattern.test(ID_Movil);
+  };
+
+  // Función para validar el formato de la placa
+  const validatePlaca = (placa) => {
+    // Formato típico de placa: ABC-123 o ABC123
+    const placaPattern = /^[A-Z]{3}[-]?\d{3}$/;
+    return placaPattern.test(placa);
+  };
+
+  // Función para validar el ID del móvil
+  const validateMovilID = (id) => {
+    if (validateFormAdmin()) {
+      // Si es admin, ya validamos el formato en validateFormAdmin()
+      return true;
+    }
+    // Para usuarios normales, el ID debe ser numérico y tener entre 4 y 6 dígitos
+    const movilPattern = /^\d{4,6}$/;
+    return movilPattern.test(id);
   };
 
   const validateForm = () => {
+    // Limpia el mensaje de error anterior
+    setErrorMessage(null);
+
+    // Valida que los campos no estén vacíos
     if (!ID_Movil || !Placa) {
       setErrorMessage('Todos los campos son obligatorios');
       return false;
     }
+
+    // Valida el formato del ID
+    if (!validateMovilID(ID_Movil)) {
+      setErrorMessage('El ID Móvil debe tener entre 4 y 6 dígitos, o el formato ADMIN-XXX para administradores');
+      return false;
+    }
+
+    // Valida el formato de la placa
+    if (!validatePlaca(Placa)) {
+      setErrorMessage('La placa debe tener el formato ABC-123 o ABC123');
+      return false;
+    }
+
     return true;
   };
 
@@ -44,15 +80,15 @@ function Login() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          [isAdmin ? 'ID' : 'ID_Movil']: ID_Movil,
-          [isAdmin ? 'contrasena' : 'Placa']: Placa 
+          [isAdmin ? 'nombre' : 'ID_Movil']: ID_Movil,
+          [isAdmin ? 'contraseña' : 'Placa']: Placa 
         }),
       });
 
       if (response.ok) {
         const data = await response.json();
         if (isAdmin) {
-          localStorage.setItem('ID', ID_Movil);
+          localStorage.setItem('nombre', ID_Movil);
           window.location.href = '/HomeA';
         } else {
           localStorage.setItem('ID_Movil', ID_Movil);
@@ -75,7 +111,7 @@ function Login() {
     <div className="flex flex-col items-center justify-center h-screen bg-[#fffef2]">
       <h1 className="text-2xl font-bold mb-6">Iniciar Sesión</h1>
       <div className="flex justify-center items-center w-20 h-20 mb-5">
-        <img src="/api/placeholder/160/160" alt="Logo" className="w-40 mx-auto mb-6 rounded-lg" />
+        <img src={Logo} alt="Logo" className="w-40 mx-auto mb-6 rounded-lg" />
       </div>
       <form
         className="bg-white w-72 p-5 border-2 border-green-600 rounded-lg shadow-lg text-center"
@@ -86,7 +122,7 @@ function Login() {
           id="ID_Movil"
           placeholder="Ingrese Móvil"
           value={ID_Movil}
-          onChange={(e) => setMovil(e.target.value)}
+          onChange={(e) => setMovil(e.target.value.toUpperCase())}
           className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
         />
         <input
@@ -94,7 +130,7 @@ function Login() {
           id="Placa"
           placeholder="Placa"
           value={Placa}
-          onChange={(e) => setPlaca(e.target.value)}
+          onChange={(e) => setPlaca(e.target.value.toUpperCase())}
           className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
         />
         {errorMessage && (
