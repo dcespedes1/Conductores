@@ -81,7 +81,11 @@ const AgregarM = () => {
               type="text"
               id="ID_Movil"
               value={ID_Movil}
-              onChange={(e) => setMovil(e.target.value)}
+              onChange={(e) =>{ 
+                const value = e.target.value;
+                if(/^\d+$/.test(value) && value.length <= 10){
+                setMovil(e.target.value)}}}
+                maxLength={4}
               className="w-full px-4 py-2 border border-[#30884B] rounded-md bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#30884B]"
               required
             />
@@ -89,16 +93,31 @@ const AgregarM = () => {
 
           {/* Placa */}
           <div className="mb-4">
-            <label htmlFor="Placa" className="block text-sm font-bold text-black mb-2">Placa</label>
-            <input
-              type="text"
-              id="Placa"
-              value={Placa}
-              onChange={(e) => setPlaca(e.target.value)}
-              className="w-full px-4 py-2 border border-[#30884B] rounded-md bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#30884B]"
-              required
-            />
-          </div>
+  <label htmlFor="Placa" className="block text-sm font-bold text-black mb-2">
+    Placa
+  </label>
+  <input
+    type="text"
+    id="Placa"
+    value={Placa}
+    onChange={(e) => {
+      const inputValue = e.target.value.toUpperCase(); // Convierte a mayúsculas
+      // Permitir solo letras y números (entradas parciales)
+      if (/^[A-Z0-9]*$/.test(inputValue) && inputValue.length <= 6) {
+        setPlaca(inputValue);
+      }
+    }}
+    onBlur={() => {
+      // Validar el formato completo al salir del campo
+      const placaRegex = /^[A-Z]{3}[0-9]{3}$/;
+      if (!placaRegex.test(Placa) && Placa !== "") {
+        alert("Formato de placa inválido. Debe ser ABC123.");
+      }
+    }}
+    className="w-full px-4 py-2 border border-[#30884B] rounded-md bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#30884B]"
+    required
+  />
+</div>
 
           {/* T. Vinculación */}
           <div className="mb-4">

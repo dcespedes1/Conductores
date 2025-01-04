@@ -12,6 +12,7 @@ function Register ()  {
   const [telefono, settelefono] = useState("");
   const [fechaExp, setfechaExp] = useState("");
   const [fechaVen, setfechaVen] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const store = async (e) => {
@@ -59,8 +60,6 @@ function Register ()  {
       <div className="mb-6">
         <img src={Logo} alt="Logo" className="w-40 mx-auto mb-6 rounded-lg" />
       </div>
-
-
       <div className="bg-white w-full max-w-md p-6 border-2 border-[#30884B] rounded-lg shadow-md">
         <form onSubmit={store}>
           <div className="mb-4">
@@ -69,48 +68,72 @@ function Register ()  {
               type="text"
               id="ID_Conductor"
               value={ID_Conductor}
-              onChange={(e) => setId_Conductor(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                if(/^\d+$/.test(value) && value.length <= 10){
+                  setId_Conductor(value);
+                } 
+              }}
+              maxLength={10}
               className="w-full px-4 py-2 border border-[#30884B] rounded-md bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#30884B]"
               required
             />
           </div>
-
           <div className="mb-4">
             <label htmlFor="nombre" className="block text-sm font-bold text-black mb-2">Nombre</label>
             <input
               type="text"
               id="nombre"
               value={nombre}
-              onChange={(e) => setnombre(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                const regex = /^[a-zA-Z\s]*$/;
+                if (regex.test(value)) {
+                  setnombre(value);}
+              }}
               className="w-full px-4 py-2 border border-[#30884B] rounded-md bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#30884B]"
               required
             />
           </div>
-
           <div className="mb-4">
-            <label htmlFor="apellido" className="block text-sm font-bold text-black mb-2">Apellido</label>
-            <input
-              type="text"
-              id="apellido"
-              value={apellido}
-              onChange={(e) => setapellido(e.target.value)}
-              className="w-full px-4 py-2 border border-[#30884B] rounded-md bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#30884B]"
-              required
-            />
-          </div>
-
+      <label
+        htmlFor="apellido"
+        className="block text-sm font-bold text-black mb-2"
+      >
+        Apellido
+      </label>
+      <input
+        type="text"
+        id="apellido"
+        value={apellido}
+        onChange={(e) => {
+          const value = e.target.value;
+          const regex = /^[a-zA-Z\s]*$/;
+          if (regex.test(value)) {
+            setapellido(value);
+            setError('')}
+        }}
+        className="w-full px-4 py-2 border border-[#30884B] rounded-md bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#30884B]"
+        required
+      />
+      {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
+    </div>
           <div className="mb-4">
             <label htmlFor="telefono" className="block text-sm font-bold text-black mb-2">Telefono</label>
             <input
               type="text"
               id="telefono"
               value={telefono}
-              onChange={(e) => settelefono(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                if(/^\d+$/.test(value) && value.length <= 10){
+                settelefono(e.target.value)}
+              }}
+              maxLength={10}
               className="w-full px-4 py-2 border border-[#30884B] rounded-md bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#30884B]"
               required
             />
           </div>
-
           <div className="mb-4">
             <label htmlFor="fechaExp" className="block text-sm font-bold text-black mb-2">Fecha expedición licencia de conducción</label>
             <input
@@ -122,7 +145,6 @@ function Register ()  {
               required
             />
           </div>
-
           <div className="mb-4">
             <label htmlFor="fechaVen" className="block text-sm font-bold text-black mb-2">Fecha vencimiento licencia de conducción</label>
             <input

@@ -9,6 +9,7 @@ import IMoviles from './pages/Moviles';
 import Conductores from './pages/Conductores';
 import AgregarC from './pages/AgregarC';
 import AgregarM from './pages/AgregarM';
+import ActualizarMovil from './pages/AMovil';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path='/conductores' element={<Conductores />} />
           <Route path='/agregarC' element={<AgregarC />} />
           <Route path='/agregarM' element={<AgregarM />} />
+          <Route path='/actualizarMovil/:ID_Movil' element={<ActualizarMovil />} />
         </Routes>
 
       </div>

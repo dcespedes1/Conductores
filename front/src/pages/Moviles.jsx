@@ -130,7 +130,7 @@ function Moviles() {
                     <td className="px-4 py-2 border">{movil.Ven_Transito}</td>
                     <td className="px-4 py-2 border flex gap-2">
                       <button className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-400 transition">
-                        <Link to={`/ActualizarB/${movil.ID_Movil}`}>✏️</Link>
+                        <Link to={`/ActualizarMovil/${movil.ID_Movil}`}>✏️</Link>
                       </button>
                       <button
                         onClick={() => handleDelete(movil.ID_Movil)}
